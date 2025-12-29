@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <div class="app" id="app">
+  <!-- HEADER -->
+  <header class="topbar">
+    <div class="brand" id="brand">
+      <div class="brandIcon" aria-hidden="true">
+        <!-- JAPPALEH KENTE LOGO (SVG) -->
+        <svg class="logo" viewBox="0 0 100 100" role="img" aria-label="Jappaleh logo">
+          <defs>
+            <!-- Kente pattern -->
+            <pattern id="kente" width="18" height="18" patternUnits="userSpaceOnUse">
+              <rect width="18" height="18" fill="#0b5b3b"></rect>
+              <rect x="0" y="0" width="18" height="5" fill="#f2c94c"></rect>
+              <rect x="0" y="12" width="18" height="4" fill="#b11226"></rect>
+              <rect x="7" y="0" width="4" height="18" fill="rgba(0,0,0,.25)"></rect>
+              <rect x="0" y="7" width="18" height="3" fill="rgba(0,0,0,.25)"></rect>
+            </pattern>
+
+            <!-- soft inner glow -->
+            <radialGradient id="glow" cx="30%" cy="30%" r="75%">
+              <stop offset="0%" stop-color="rgba(242,201,76,.55)" />
+              <stop offset="65%" stop-color="rgba(11,91,59,.25)" />
+              <stop offset="100%" stop-color="rgba(0,0,0,0)" />
+            </radialGradient>
+          </defs>
+
+          <!-- outer badge -->
+          <rect x="8" y="8" width="84" height="84" rx="22" fill="rgba(255,255,255,.08)"></rect>
+          <rect x="10" y="10" width="80" height="80" rx="20" fill="rgba(0,0,0,.25)"></rect>
+
+          <!-- African symbol diamond -->
+          <polygon points="50,16 82,50 50,84 18,50" fill="url(#kente)" stroke="rgba(255,255,255,.18)" stroke-width="2"></polygon>
+          <circle cx="50" cy="50" r="10" fill="#0b0b0b" opacity=".85"></circle>
+          <circle cx="50" cy="50" r="6" fill="#f2c94c"></circle>
+
+          <!-- glow overlay -->
+          <circle cx="42" cy="42" r="36" fill="url(#glow)"></circle>
+        </svg>
+      </div>
+
+      <div class="brandText">
+        <div class="brandName">Jappaleh</div>
+        <div class="brandTag">Helping hand · Help each other</div>
+      </div>
+    </div>
+
+    <div class="topActions">
+      <button class="chip ghost" id="aaBtn" title="Bigger text">
+        <span class="dot"></span> Aa
+      </button>
+
+      <button class="chip premium" id="premiumBtn" title="Go Premium">
+        <span class="spark">✦</span> Premium <span class="price">$2.99</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <button class="tab active" data-view="home">Home</button>
+    <button class="tab" data-view="create">Create</button>
+    <button class="tab" data-view="matches">Matches</button>
+    <button class="tab" data-view="messages">Messages</button>
+    <button class="tab" data-view="profile">Profile</button>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+    <!-- HOME VIEW -->
+    <section class="view active" id="view-home">
+      <div class="hero">
+        <div class="heroLeft">
+          <h1>Trade help. Swap items. Save money.</h1>
+          <p class="sub">
+            Jappaleh matches neighbors who can help each other — handyman ↔ plumbing, babysitting ↔ yard work, tutoring ↔ hair help.
+          </p>
+
+          <div class="filters card">
+            <div class="field">
+              <label>Location</label>
+              <input id="location" value="Everett, 98201" />
+            </div>
+
+            <div class="field">
+              <label>Radius</label>
+              <select id="radius">
+                <option>5 miles</option>
+                <option selected>10 miles (free)</option>
+                <option>25 miles</option>
+                <option>50 miles</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Search</label>
+              <input id="search" placeholder="plumbing, tutoring, sofa..." />
+            </div>
+
+            <div class="btnRow">
+              <button class="btn primary" id="quickPostBtn">Quick Post</button>
+              <button class="btn" id="demoBtn">Add Demo Listings</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="heroRight">
+          <div class="stats">
+            <div class="stat card">
+              <div class="statNum" id="nearbyCount">5</div>
+              <div class="statLbl">Nearby listings</div>
+            </div>
+            <div class="stat card">
+              <div class="statNum" id="matchCount">8</div>
+              <div class="statLbl">Matches today</div>
+            </div>
+            <div class="stat card">
+              <div class="statNum" id="savedAmt">$175</div>
+              <div class="statLbl">Estimated saved</div>
+            </div>
+          </div>
+
+          <div class="trust card">
+            <div class="trustTop">
+              <span class="pill">Trust</span>
+              <span class="trustPct" id="trustPct">92%</span>
+            </div>
+            <div class="bar">
+              <div class="barFill" id="barFill" style="width:92%"></div>
+            </div>
+            <div class="trustHelp">Profiles + verified trades raise your trust.</div>
+
+            <div class="wow">
+              <div class="wowTitle">WOW Tip</div>
+              <div class="wowText">Tap a card to expand it. Long-press (or click ★) to save it.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LISTINGS -->
+      <div class="sectionHead">
+        <h2>Nearby</h2>
+        <div class="seg">
+          <button class="segBtn active" data-filter="all">All</button>
+          <button class="segBtn" data-filter="services">Services</button>
+          <button class="segBtn" data-filter="items">Items</button>
+        </div>
+      </div>
+
+      <div class="grid" id="cards"></div>
+    </section>
+
+    <!-- CREATE VIEW -->
+    <section class="view" id="view-create">
+      <div class="panel card">
+        <h2>Create Listing</h2>
+        <p class="muted">Quick and smooth — built for people who are busy.</p>
+
+        <div class="form">
+          <div class="field">
+            <label>Mode</label>
+            <select id="mode">
+              <option value="offer" selected>OFFER</option>
+              <option value="need">NEED</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Type</label>
+            <select id="type">
+              <option value="service" selected>Service</option>
+              <option value="item">Item</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Title</label>
+            <input id="title" placeholder="Example: Handyman help, tutoring, couch swap…" />
+          </div>
+
+          <div class="field">
+            <label>Tags (comma separated)</label>
+            <input id="tags" placeholder="plumbing, yard, shelves, stroller…" />
+          </div>
+
+          <div class="field">
+            <label>Description</label>
+            <textarea id="desc" placeholder="What you offer/need + what you want to trade for…"></textarea>
+          </div>
+
+          <div class="btnRow">
+            <button class="btn primary" id="postBtn">Post Listing</button>
+            <button class="btn danger" id="resetBtn">Reset</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MATCHES VIEW -->
+    <section class="view" id="view-matches">
+      <div class="panel card">
+        <h2>Smart Matches</h2>
+        <p class="muted">We prioritize helpful, nearby trades first — trust + relevance.</p>
+
+        <div class="matchBox">
+          <input id="matchOffer" placeholder="I offer… (handyman, shelves, painting)" />
+          <input id="matchNeed" placeholder="I need… (plumbing, sink, leak)" />
+          <div class="btnRow">
+            <button class="btn primary" id="findMatchesBtn">Find Matches</button>
+            <button class="btn" id="useProfileBtn">Use My Profile</button>
+          </div>
+        </div>
+
+        <div class="grid" id="matchCards"></div>
+      </div>
+    </section>
+
+    <!-- MESSAGES VIEW -->
+    <section class="view" id="view-messages">
+      <div class="panel card">
+        <h2>Messages</h2>
+        <p class="muted">Demo inbox — when you go Premium, you unlock unlimited messages.</p>
+        <div class="inbox" id="inbox"></div>
+      </div>
+    </section>
+
+    <!-- PROFILE VIEW -->
+    <section class="view" id="view-profile">
+      <div class="panel card">
+        <h2>Profile</h2>
+
+        <div class="profileGrid">
+          <div class="profileCard card">
+            <div class="profileTop">
+              <div class="avatar" aria-hidden="true">MR</div>
+              <div>
+                <div class="bold">Muhammed</div>
+                <div class="muted small">Everett • Building community</div>
+              </div>
+            </div>
+
+            <div class="badges">
+              <span class="badge">Verified (demo)</span>
+              <span class="badge">Fast responder</span>
+              <span class="badge">Trusted</span>
+            </div>
+
+            <div class="btnRow">
+              <button class="btn" id="editProfileBtn">Edit</button>
+              <button class="btn primary" id="goPremiumBtn">Go Premium</button>
+            </div>
+          </div>
+
+          <div class="profileCard card">
+            <h3>Your Stats</h3>
+            <div class="miniStats">
+              <div><span class="big" id="pHelped">23</span><span class="muted small">People helped</span></div>
+              <div><span class="big" id="pSaved">$120</span><span class="muted small">Estimated saved</span></div>
+              <div><span class="big" id="pTrust">92%</span><span class="muted small">Trust score</span></div>
+            </div>
+
+            <div class="note">
+              Tip: completing 2 trades + adding a photo boosts trust faster.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- BOTTOM BAR -->
+  <footer class="bbar">
+    <button class="bbtn" id="postFromBottom">+ Post</button>
+    <button class="bbtn" id="savedBtn">★ Saved <span class="pillNum" id="savedCount">0</span></button>
+    <button class="bbtn premiumActive" id="premiumState">✦ Premium Active</button>
+  </footer>
+
+  <!-- PREMIUM MODAL -->
+  <div class="modal hidden" id="premiumModal" aria-hidden="true">
+    <div class="modalCard card">
+      <div class="modalTop">
+        <div>
+          <div class="modalTitle">Go Premium — $2.99/month</div>
+          <div class="muted small">More reach. More trust. Faster matches.</div>
+        </div>
+        <button class="x" id="closePremium" aria-label="Close">✕</button>
+      </div>
+
+      <div class="premiumGrid">
+        <div class="perk"><span>⚡</span> Expanded radius (25–50 miles)</div>
+        <div class="perk"><span>💬</span> Unlimited messages</div>
+        <div class="perk"><span>✅</span> Verified badge (more trust)</div>
+        <div class="perk"><span>⭐</span> Priority matches (show up first)</div>
+        <div class="perk"><span>🔍</span> Premium filters</div>
+        <div class="perk"><span>💰</span> Savings tracker</div>
+      </div>
+
+      <div class="modalActions">
+        <button class="btn" id="notNow">Not now</button>
+        <button class="btn primary" id="startPremium">Start Premium</button>
+      </div>
+
+      <div class="muted small center">
+        Demo build: payment is simulated. (Stripe wiring comes next.)
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- CONFETTI CANVAS -->
+  <canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
+</div>
+    <script  src="./script.js"></script>
+<!-- Jappaleh Feedback Button (floating) -->
+<a
+  href="https://forms.gle/gq3AP4z1BaYwHpno6"
+  target="_blank"
+  rel="noopener"
+  style="
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 999999;
+    background: linear-gradient(135deg,#f4c430,#0f9d58,#d62828);
+    color: #111;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-weight: 900;
+    letter-spacing: .2px;
+    padding: 14px 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 12px 35px rgba(0,0,0,.45);
+    border: 2px solid rgba(255,255,255,.18);
+  "
+  onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 16px 45px rgba(0,0,0,.6)';"
+  onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 12px 35px rgba(0,0,0,.45)';"
+>
+  💬 Give Feedback
+</a>
+
+  </body>
+  
+</html>
